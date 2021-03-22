@@ -8,7 +8,7 @@ public class BookDTO {
     private String subtitle;
     private List<String> authors;
     private List<String> translators;
-    private Long isbn;
+    private String isbn;
     private String username;
     private Integer edition;
     private Integer year;
@@ -50,11 +50,11 @@ public class BookDTO {
         this.translators = translators;
     }
 
-    public Long getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Long isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 

@@ -51,60 +51,53 @@ public class BookService {
         AppUser user = appUserRepository.findByUsername(bookDTO.getUsername());
 
         Book book = bookRepository.save(new Book(bookDTO.getTitle(), bookDTO.getTitle(), bookDTO.getIsbn(), user));
-        book.setTranslators(handleTranslators(bookDTO.getTranslators()));
-        book.setAuthors(handleAuthors(bookDTO.getAuthors()));
+        handleAuthors(bookDTO.getAuthors(), book);
+        handleTranslators(bookDTO.getTranslators(), book);
 
         Edition edition = editionRepository.save(new Edition(bookDTO.getEdition(), bookDTO.getYear(), bookDTO.getPages(), bookDTO.getCover(), bookDTO.getBlurb(), book));
-        edition.setCities(handleCities(bookDTO.getCities()));
-        edition.setPublishers(handlePublishers(bookDTO.getPublishers()));
+        handleCities(bookDTO.getCities(), edition);
+        handlePublishers(bookDTO.getPublishers(), edition);
     }
 
-    private List<Translator> handleTranslators(List<String> translatorsFromDTO) {
+    private void handleTranslators(List<String> translatorsFromDTO, Book book) {
         List<Translator> translators = new ArrayList<>();
         for (String translator : translatorsFromDTO) {
             if (translatorRepository.findByFullName(translator) == null) {
-                translators.add(translatorRepository.save(new Translator(translator)));
+                translatorRepository.save(new Translator(translator)).addBook(book);
             } else {
-                translators.add(translatorRepository.findByFullName(translator));
+                translatorRepository.findByFullName(translator).addBook(book);
             }
         }
-        return translators;
     }
 
-    private List<Author> handleAuthors(List<String> authorsFromDTO) {
-        List<Author> authors = new ArrayList<>();
+    private void handleAuthors(List<String> authorsFromDTO, Book book) {
         for (String author : authorsFromDTO) {
             if (authorRepository.findByFullName(author) == null) {
-                authors.add(authorRepository.save(new Author(author)));
+                authorRepository.save(new Author(author)).addBook(book);
             } else {
-                authors.add(authorRepository.findByFullName(author));
+                authorRepository.findByFullName(author).addBook(book);
             }
         }
-        return authors;
     }
 
-    private List<City> handleCities(List<String> citiesFromDTO) {
-        List<City> cities = new ArrayList<>();
+    private void handleCities(List<String> citiesFromDTO, Edition edition) {
         for (String city : citiesFromDTO) {
             if (cityRepository.findByName(city) == null) {
-                cities.add(cityRepository.save(new City(city)));
+                cityRepository.save(new City(city)).addEdition(edition);
             } else {
-                cities.add(cityRepository.findByName(city));
+                cityRepository.findByName(city).addEdition(edition);
             }
         }
-        return cities;
     }
 
-    private List<Publisher> handlePublishers(List<String> publishersFromDTO) {
-        List<Publisher> publishers = new ArrayList<>();
+    private void handlePublishers(List<String> publishersFromDTO, Edition edition) {
         for (String publisher : publishersFromDTO) {
             if (publisherRepository.findByName(publisher) == null) {
-                publishers.add(publisherRepository.save(new Publisher(publisher)));
+                publisherRepository.save(new Publisher(publisher)).addEdition(edition);
             } else {
-                publishers.add(publisherRepository.findByName(publisher));
+                publisherRepository.findByName(publisher).addEdition(edition);
             }
         }
-        return publishers;
     }
 
 }

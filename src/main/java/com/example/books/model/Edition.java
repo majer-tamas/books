@@ -2,7 +2,9 @@ package com.example.books.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "edition")
@@ -19,11 +21,17 @@ public class Edition {
     @Column(name = "year")
     private Integer year;
 
-    @ManyToMany(mappedBy = "editions")
-    private List<Publisher> publishers = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "edition_publisher",
+               joinColumns = { @JoinColumn(name = "fk_edition") },
+               inverseJoinColumns = { @JoinColumn(name = "fk_publisher") })
+    private Set<Publisher> publishers = new HashSet<>();
 
-    @ManyToMany(mappedBy = "editions")
-    private List<City> cities = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "edition_city",
+               joinColumns = { @JoinColumn(name = "fk_edition") },
+               inverseJoinColumns = { @JoinColumn(name = "fk_city") })
+    private Set<City> cities = new HashSet<>();
 
     @OneToMany(mappedBy = "editionId")
     private List<CoverImage> coverImages = new ArrayList<>();
@@ -78,19 +86,19 @@ public class Edition {
         this.year = year;
     }
 
-    public List<Publisher> getPublishers() {
+    public Set<Publisher> getPublishers() {
         return publishers;
     }
 
-    public void setPublishers(List<Publisher> publishers) {
+    public void setPublishers(Set<Publisher> publishers) {
         this.publishers = publishers;
     }
 
-    public List<City> getCities() {
+    public Set<City> getCities() {
         return cities;
     }
 
-    public void setCities(List<City> cities) {
+    public void setCities(Set<City> cities) {
         this.cities = cities;
     }
 

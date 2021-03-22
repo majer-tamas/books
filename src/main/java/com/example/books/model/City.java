@@ -2,7 +2,9 @@ package com.example.books.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "city")
@@ -16,19 +18,19 @@ public class City {
             unique = true)
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "city_edition",
-            joinColumns = { @JoinColumn(name = "city_id") },
-            inverseJoinColumns = { @JoinColumn(name = "edition_id") }
-    )
-    private List<Edition> editions = new ArrayList<>();
+    @ManyToMany(mappedBy = "cities")
+    private Set<Edition> editions = new HashSet<>();
 
     public City() {
     }
 
     public City(String name) {
         this.name = name;
+    }
+
+    public void addEdition(Edition edition) {
+        this.editions.add(edition);
+        edition.getCities().add(this);
     }
 
     public Long getCityId() {
@@ -47,11 +49,11 @@ public class City {
         this.name = name;
     }
 
-    public List<Edition> getEditions() {
+    public Set<Edition> getEditions() {
         return editions;
     }
 
-    public void setEditions(List<Edition> editions) {
+    public void setEditions(Set<Edition> editions) {
         this.editions = editions;
     }
 

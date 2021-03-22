@@ -2,7 +2,9 @@ package com.example.books.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "book")
@@ -19,18 +21,24 @@ public class Book {
     @Column(name = "subtitle")
     private String subtitle;
 
-    @ManyToMany(mappedBy = "books")
-    private List<Author> authors = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "book_author",
+               joinColumns = { @JoinColumn(name = "fk_book") },
+               inverseJoinColumns = { @JoinColumn(name = "fk_author") })
+    private Set<Author> authors = new HashSet<>();
 
     @OneToMany(mappedBy = "bookId")
-    private List<Edition> editions = new ArrayList<>();
+    private Set<Edition> editions = new HashSet<>();
 
-    @ManyToMany(mappedBy = "books")
-    private List<Translator> translators = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "book_translator",
+               joinColumns = { @JoinColumn(name = "fk_book") },
+               inverseJoinColumns = { @JoinColumn(name = "fk_translator") })
+    private Set<Translator> translators = new HashSet<>();
 
     @Column(name = "isbn",
             unique = true)
-    private Long isbn;
+    private String isbn;
 
     @OneToOne
     @JoinColumn(name = "app_user_id")
@@ -39,7 +47,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String subtitle, Long isbn, AppUser appUserId) {
+    public Book(String title, String subtitle, String isbn, AppUser appUserId) {
         this.title = title;
         this.subtitle = subtitle;
         this.isbn = isbn;
@@ -70,35 +78,35 @@ public class Book {
         this.subtitle = subtitle;
     }
 
-    public List<Author> getAuthors() {
+    public Set<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<Author> authors) {
+    public void setAuthors(Set<Author> authors) {
         this.authors = authors;
     }
 
-    public List<Edition> getEditions() {
+    public Set<Edition> getEditions() {
         return editions;
     }
 
-    public void setEditions(List<Edition> editions) {
+    public void setEditions(Set<Edition> editions) {
         this.editions = editions;
     }
 
-    public List<Translator> getTranslators() {
+    public Set<Translator> getTranslators() {
         return translators;
     }
 
-    public void setTranslators(List<Translator> translators) {
+    public void setTranslators(Set<Translator> translators) {
         this.translators = translators;
     }
 
-    public Long getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Long isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
