@@ -16,7 +16,7 @@ public class Publisher {
             unique = true)
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "publisher_edition",
             joinColumns = { @JoinColumn(name = "publisher_id") },

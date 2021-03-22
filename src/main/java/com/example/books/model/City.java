@@ -16,7 +16,7 @@ public class City {
             unique = true)
     private String name;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany
     @JoinTable(
             name = "city_edition",
             joinColumns = { @JoinColumn(name = "city_id") },

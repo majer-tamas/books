@@ -17,7 +17,7 @@ public class Translator {
             unique = true)
     private String fullName;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany
     @JoinTable(
             name = "book_translator",
             joinColumns = { @JoinColumn(name = "translator_id") },
