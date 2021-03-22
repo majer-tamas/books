@@ -42,9 +42,7 @@ public class BookService {
     }
 
     public Book findBookById(Long id) {
-        Optional<Book> book = bookRepository.findById(id);
-        //TODO EXCEPTION
-        return book.orElse(null);
+        return bookRepository.findBookById(id);
     }
 
     public void createNewBook(BookDTO bookDTO) {

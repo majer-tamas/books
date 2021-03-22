@@ -1,5 +1,7 @@
 package com.example.books.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,6 +20,7 @@ public class Publisher {
             unique = true)
     private String name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "publishers")
     private Set<Edition> editions = new HashSet<>();
 

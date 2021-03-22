@@ -1,5 +1,7 @@
 package com.example.books.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -46,6 +48,7 @@ public class Edition {
     @Column(name = "blurb")
     private String blurb;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book bookId;
