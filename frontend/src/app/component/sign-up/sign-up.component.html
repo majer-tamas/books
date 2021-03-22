@@ -1,0 +1,35 @@
+<app-menu></app-menu>
+
+<div class="container margin-top-30">
+
+  <h3 class="text-center">Sign Up</h3>
+
+  <form (ngSubmit)="submit()" [formGroup]="form">
+
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input class="form-control" id="username" name="username" formControlName="username" aria-describedby="emailHelp">
+      <div id="usernameHelp" class="form-text text-danger"
+           *ngIf="usernameInvalidMessage !== 'valid'">{{usernameInvalidMessage}}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email address</label>
+      <input type="email" class="form-control" name="email" id="email" formControlName="email"
+             aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text text-danger"
+           *ngIf="emailInvalidMessage !== 'valid'">{{emailInvalidMessage}}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" name="password" id="password" formControlName="password"
+             aria-describedby="passwordHelp">
+      <div id="passwordHelp" class="form-text text-danger">{{passwordInvalidMessage}}</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!allInputValid()">Submit</button>
+
+  </form>
+
+</div>
