@@ -1,6 +1,7 @@
 package com.example.books.controller;
 
 import com.example.books.dto.BookDTO;
+import com.example.books.dto.ReviewDTO;
 import com.example.books.model.Book;
 import com.example.books.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,12 @@ public class BookController {
     public ResponseEntity<?> findBookById(@PathVariable Long id) {
         Book book = bookService.findBookById(id);
         return ResponseEntity.ok(book);
+    }
+
+    @PostMapping("/add-review")
+    public ResponseEntity<?> addReview(@RequestBody ReviewDTO reviewDTO) {
+        bookService.addReview(reviewDTO);
+        return ResponseEntity.ok().build();
     }
 
 }

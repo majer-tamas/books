@@ -73,6 +73,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/cloudinary/getAll/**").permitAll()
                     .antMatchers("/api/books/create").permitAll()
                     .antMatchers("/api/books/find-book/**").permitAll()
+                    .antMatchers("/api/books/add-review").permitAll()
                     .anyRequest().authenticated().and()
                     .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                     .and().sessionManagement()

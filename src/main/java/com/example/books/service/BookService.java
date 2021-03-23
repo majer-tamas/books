@@ -1,6 +1,7 @@
 package com.example.books.service;
 
 import com.example.books.dto.BookDTO;
+import com.example.books.dto.ReviewDTO;
 import com.example.books.model.*;
 import com.example.books.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -22,6 +22,7 @@ public class BookService {
     private final TranslatorRepository translatorRepository;
     private final AuthorRepository authorRepository;
     private final EditionRepository editionRepository;
+    private final ReviewRepository reviewRepository;
 
     @Autowired
     public BookService(BookRepository bookRepository,
@@ -30,7 +31,8 @@ public class BookService {
                        PublisherRepository publisherRepository,
                        TranslatorRepository translatorRepository,
                        AuthorRepository authorRepository,
-                       EditionRepository editionRepository
+                       EditionRepository editionRepository,
+                       ReviewRepository reviewRepository
     ) {
         this.bookRepository = bookRepository;
         this.appUserRepository = appUserRepository;
@@ -39,6 +41,7 @@ public class BookService {
         this.translatorRepository = translatorRepository;
         this.authorRepository = authorRepository;
         this.editionRepository = editionRepository;
+        this.reviewRepository = reviewRepository;
     }
 
     public Book findBookById(Long id) {
@@ -58,7 +61,6 @@ public class BookService {
     }
 
     private void handleTranslators(List<String> translatorsFromDTO, Book book) {
-        List<Translator> translators = new ArrayList<>();
         for (String translator : translatorsFromDTO) {
             if (translatorRepository.findByFullName(translator) == null) {
                 translatorRepository.save(new Translator(translator)).addBook(book);
@@ -96,6 +98,16 @@ public class BookService {
                 publisherRepository.findByName(publisher).addEdition(edition);
             }
         }
+    }
+
+    public void addReview(ReviewDTO reviewDTO) {
+        String text = reviewDTO.getText();
+        Integer point = reviewDTO.getPoint();
+        Book book = bookRepository.findBookById(reviewDTO.getBookId());
+        AppUser appUser = appUserRepository.findById(reviewDTO.getUserId()).get();
+        Review savedReview = reviewRepository.save(new Review(text, point, book, appUser));
+        savedReview.addBook(book);
+        savedReview.addUser(appUser);
     }
 
 }

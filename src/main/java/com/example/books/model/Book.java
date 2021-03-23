@@ -3,9 +3,7 @@ package com.example.books.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -32,6 +30,9 @@ public class Book {
     @OneToMany(mappedBy = "bookId")
     private Set<Edition> editions = new HashSet<>();
 
+    @OneToMany(mappedBy = "book")
+    private Set<Review> reviews = new HashSet<>();
+
     @ManyToMany
     @JoinTable(name = "book_translator",
                joinColumns = { @JoinColumn(name = "fk_book") },
@@ -42,18 +43,19 @@ public class Book {
             unique = true)
     private String isbn;
 
-    @OneToOne
-    @JoinColumn(name = "app_user_id")
-    private AppUser appUserId;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "app_user")
+    private AppUser appUser;
 
     public Book() {
     }
 
-    public Book(String title, String subtitle, String isbn, AppUser appUserId) {
+    public Book(String title, String subtitle, String isbn, AppUser appUser) {
         this.title = title;
         this.subtitle = subtitle;
         this.isbn = isbn;
-        this.appUserId = appUserId;
+        this.appUser = appUser;
     }
 
     public Long getId() {
@@ -96,6 +98,14 @@ public class Book {
         this.editions = editions;
     }
 
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     public Set<Translator> getTranslators() {
         return translators;
     }
@@ -112,12 +122,12 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public AppUser getAppUserId() {
-        return appUserId;
+    public AppUser getAppUser() {
+        return appUser;
     }
 
-    public void setAppUserId(AppUser appUserId) {
-        this.appUserId = appUserId;
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 
 }

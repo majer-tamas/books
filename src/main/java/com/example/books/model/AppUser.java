@@ -2,7 +2,9 @@ package com.example.books.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "app_user")
@@ -40,6 +42,12 @@ public class AppUser {
     @ElementCollection(targetClass = Role.class)
     @JoinTable(name = "roles")
     private List<Role> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "appUser")
+    private Set<Review> reviews = new HashSet<>();
+
+    @OneToMany(mappedBy = "appUser")
+    private Set<Book> books = new HashSet<>();
 
     public AppUser() {
     }
@@ -114,6 +122,22 @@ public class AppUser {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
     }
 
 }
