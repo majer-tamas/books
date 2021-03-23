@@ -2,14 +2,15 @@ package com.example.books.service;
 
 import com.example.books.dto.BookDTO;
 import com.example.books.dto.ReviewDTO;
+import com.example.books.dto.ReviewResponseDTO;
 import com.example.books.model.*;
 import com.example.books.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -108,6 +109,10 @@ public class BookService {
         Review savedReview = reviewRepository.save(new Review(text, point, book, appUser));
         savedReview.addBook(book);
         savedReview.addUser(appUser);
+    }
+
+    public List<ReviewResponseDTO> fetchReviewsByBookId(Long id) {
+        return reviewRepository.findReviewsByBook(bookRepository.findBookById(id)).stream().map(ReviewResponseDTO::new).collect(Collectors.toList());
     }
 
 }

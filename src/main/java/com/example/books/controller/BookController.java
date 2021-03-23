@@ -2,11 +2,14 @@ package com.example.books.controller;
 
 import com.example.books.dto.BookDTO;
 import com.example.books.dto.ReviewDTO;
+import com.example.books.dto.ReviewResponseDTO;
 import com.example.books.model.Book;
 import com.example.books.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/books")
@@ -35,6 +38,12 @@ public class BookController {
     public ResponseEntity<?> addReview(@RequestBody ReviewDTO reviewDTO) {
         bookService.addReview(reviewDTO);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("reviews-by-book/{id}")
+    public ResponseEntity<?> fetchReviewsByBookId(@PathVariable Long id) {
+        List<ReviewResponseDTO> reviews = bookService.fetchReviewsByBookId(id);
+        return ResponseEntity.ok(reviews);
     }
 
 }

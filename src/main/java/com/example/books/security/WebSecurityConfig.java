@@ -74,6 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/books/create").permitAll()
                     .antMatchers("/api/books/find-book/**").permitAll()
                     .antMatchers("/api/books/add-review").permitAll()
+                    .antMatchers("/api/books/reviews-by-book/**").permitAll()
                     .anyRequest().authenticated().and()
                     .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                     .and().sessionManagement()
