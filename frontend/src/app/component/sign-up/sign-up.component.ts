@@ -36,14 +36,6 @@ export class SignUpComponent implements OnInit {
     );
   }
 
-  submit() {
-    this.loginService.createNewUser(this.form.value).subscribe(
-      (response) => {
-        this.router.navigate(['successfully-registered']);
-      }, error => console.warn(error),
-    );
-  }
-
   checkInputs(regexes: RegexListItemModel[]) {
     const inputs = document.querySelectorAll('input');
     inputs.forEach((input) => {
@@ -118,4 +110,13 @@ export class SignUpComponent implements OnInit {
            this.passwordInvalidMessage === null &&
            this.emailInvalidMessage === null;
   }
+
+  submit() {
+    this.loginService.createNewUser(this.form.value).subscribe(
+      (response) => {
+        this.router.navigate(['successfully-registered']);
+      }, error => console.warn(error),
+    );
+  }
+
 }

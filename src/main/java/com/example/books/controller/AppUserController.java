@@ -70,7 +70,7 @@ public class AppUserController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+    public ResponseEntity<JwtResponse> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
         if (!appUserService.isUserVerified(authenticationRequest.getUsername())) {
             logger.info("Not verified");
             throw new IllegalArgumentException("The email is not verified. Please check your emails.");

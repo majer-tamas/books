@@ -2,6 +2,6 @@
 
 <div class="container margin-top-30">
 
-  <h3 class="text-center red">Invalid hash</h3>
+  <h6 *ngIf="errorMessage !== ''" class="text-center red">{{errorMessage}}</h6>
 
 </div>
