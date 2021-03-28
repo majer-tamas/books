@@ -49,7 +49,7 @@ public class BookService {
         return bookRepository.findBookById(id);
     }
 
-    public void createNewBook(BookDTO bookDTO) {
+    public Book createNewBook(BookDTO bookDTO) {
         AppUser user = appUserRepository.findByUsername(bookDTO.getUsername());
 
         Book book = bookRepository.save(new Book(bookDTO.getTitle(), bookDTO.getSubtitle(), bookDTO.getIsbn(), user));
@@ -59,6 +59,8 @@ public class BookService {
         Edition edition = editionRepository.save(new Edition(bookDTO.getEdition(), bookDTO.getYear(), bookDTO.getPages(), bookDTO.getCover(), bookDTO.getBlurb(), book));
         handleCities(bookDTO.getCities(), edition);
         handlePublishers(bookDTO.getPublishers(), edition);
+
+        return book;
     }
 
     public List<Book> fetchAllBooks() {

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,8 +27,8 @@ public class BookController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createNewBook(@RequestBody BookDTO bookDTO) {
-        bookService.createNewBook(bookDTO);
-        return null;
+        Book book = bookService.createNewBook(bookDTO);
+        return ResponseEntity.ok(book.getId());
     }
 
     @GetMapping("find-book/{id}")

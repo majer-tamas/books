@@ -15,6 +15,8 @@ import {SuccessfullyRegisteredComponent} from './component/successfully-register
 import {SuccessfullyVerifiedComponent} from './component/successfully-verified/successfully-verified.component';
 import {LogoutComponent} from './component/logout/logout.component';
 import { BookListComponent } from './component/book-list/book-list.component';
+import { BookFormComponent } from './component/book-form/book-form.component';
+import { BookDetailsComponent } from './component/book-details/book-details.component';
 
 @NgModule({
             declarations: [
@@ -28,6 +30,8 @@ import { BookListComponent } from './component/book-list/book-list.component';
               SuccessfullyVerifiedComponent,
               LogoutComponent,
               BookListComponent,
+              BookFormComponent,
+              BookDetailsComponent,
             ],
             imports     : [
               BrowserModule,

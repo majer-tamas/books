@@ -1,0 +1,97 @@
+<app-menu></app-menu>
+
+<div class="container margin-top-30">
+
+  <h3 class="text-center">Add a new book</h3>
+
+  <form (ngSubmit)="submit()" [formGroup]="form">
+
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input class="form-control" id="title" name="title" formControlName="title" aria-describedby="titleHelp">
+      <div id="titleHelp" class="form-text text-danger"
+           *ngIf="titleInvalidMessage !== 'valid'">{{titleInvalidMessage}}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="subtitle" class="form-label">Subtitle</label>
+      <input class="form-control" id="subtitle" name="subtitle" formControlName="subtitle" aria-describedby="subtitleHelp">
+      <div id="subtitleHelp" class="form-text text-danger"
+           *ngIf="subtitleInvalidMessage !== 'valid'">{{subtitleInvalidMessage}}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="authors" class="form-label">Author(s)</label>
+      <input class="form-control" id="authors" name="authors" formControlName="authors" aria-describedby="authorsHelp">
+      <div id="authorsHelp" class="form-text text-danger"
+           *ngIf="authorsInvalidMessage !== 'valid'">{{authorsInvalidMessage}}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="translators" class="form-label">Translator(s)</label>
+      <input class="form-control" id="translators" name="translators" formControlName="translators" aria-describedby="translatorsHelp">
+      <div id="translatorsHelp" class="form-text text-danger"
+           *ngIf="translatorsInvalidMessage !== 'valid'">{{translatorsInvalidMessage}}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="isbn" class="form-label">ISBN</label>
+      <input class="form-control" id="isbn" name="isbn" formControlName="isbn" aria-describedby="isbnHelp">
+      <div id="isbnHelp" class="form-text text-danger"
+           *ngIf="isbnInvalidMessage !== 'valid'">{{isbnInvalidMessage}}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="edition" class="form-label">Edition</label>
+      <input type="number" min="1" max="1000" class="form-control" id="edition" name="edition" formControlName="edition" aria-describedby="editionHelp">
+      <div id="editionHelp" class="form-text text-danger"
+           *ngIf="editionInvalidMessage !== 'valid'">{{editionInvalidMessage}}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="year" class="form-label">Year</label>
+      <input type="number" min="1455" [max]="currentYear" class="form-control" id="year" name="year" formControlName="year" aria-describedby="yearHelp">
+      <div id="yearHelp" class="form-text text-danger"
+           *ngIf="yearInvalidMessage !== 'valid'">{{yearInvalidMessage}}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="publishers" class="form-label">Publisher(s)</label>
+      <input class="form-control" id="publishers" name="publishers" formControlName="publishers" aria-describedby="publishersHelp">
+      <div id="publishersHelp" class="form-text text-danger"
+           *ngIf="publishersInvalidMessage !== 'valid'">{{publishersInvalidMessage}}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="cities" class="form-label">City/Cities</label>
+      <input class="form-control" id="cities" name="cities" formControlName="cities" aria-describedby="citiesHelp">
+      <div id="citiesHelp" class="form-text text-danger"
+           *ngIf="citiesInvalidMessage !== 'valid'">{{citiesInvalidMessage}}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="pages" class="form-label">Pages</label>
+      <input type="number" min="1" max="10000" class="form-control" id="pages" name="pages" formControlName="pages" aria-describedby="pagesHelp">
+      <div id="pagesHelp" class="form-text text-danger"
+           *ngIf="pagesInvalidMessage !== 'valid'">{{pagesInvalidMessage}}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="cover" class="form-label">Cover</label>
+      <input class="form-control" id="cover" name="cover" formControlName="cover" aria-describedby="coverHelp">
+      <div id="coverHelp" class="form-text text-danger"
+           *ngIf="coverInvalidMessage !== 'valid'">{{coverInvalidMessage}}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="blurb" class="form-label">Blurb</label>
+      <textarea class="form-control" id="blurb" name="blurb" formControlName="blurb" aria-describedby="blurbHelp" rows="3"></textarea>
+      <div id="blurbHelp" class="form-text text-danger"
+           *ngIf="blurbInvalidMessage !== 'valid'">{{blurbInvalidMessage}}</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!allInputValid()">Submit</button>
+
+  </form>
+
+</div>

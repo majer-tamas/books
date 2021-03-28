@@ -1,0 +1,15 @@
+.form-control:focus {
+  box-shadow: none;
+}
+
+input.invalid {
+  border-color: red;
+  border-bottom-style: solid;
+  border-width: 2px;
+}
+
+input.valid {
+  border-color: limegreen;
+  border-bottom-style: solid;
+  border-width: 2px;
+}

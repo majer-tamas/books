@@ -17,6 +17,9 @@
           <a *ngIf="!isLoggedIn" class="nav-link" routerLink="/signup" routerLinkActive="active">Signup</a>
         </li>
         <li class="nav-item">
+          <a *ngIf="isLoggedIn" class="nav-link" routerLink="/add-book">Add a book</a>
+        </li>
+        <li class="nav-item">
           <a *ngIf="isLoggedIn" class="nav-link" (click)="logout()" style="cursor:pointer">Logout</a>
         </li>
       </ul>
