@@ -43,7 +43,7 @@ public class Book {
             unique = true)
     private String isbn;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "app_user")
     private AppUser appUser;

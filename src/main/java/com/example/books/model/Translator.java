@@ -21,7 +21,7 @@ public class Translator {
             unique = true)
     private String fullName;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToMany(mappedBy = "translators")
     private Set<Book> books = new HashSet<>();
 

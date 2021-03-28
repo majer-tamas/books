@@ -52,13 +52,17 @@ public class BookService {
     public void createNewBook(BookDTO bookDTO) {
         AppUser user = appUserRepository.findByUsername(bookDTO.getUsername());
 
-        Book book = bookRepository.save(new Book(bookDTO.getTitle(), bookDTO.getTitle(), bookDTO.getIsbn(), user));
+        Book book = bookRepository.save(new Book(bookDTO.getTitle(), bookDTO.getSubtitle(), bookDTO.getIsbn(), user));
         handleAuthors(bookDTO.getAuthors(), book);
         handleTranslators(bookDTO.getTranslators(), book);
 
         Edition edition = editionRepository.save(new Edition(bookDTO.getEdition(), bookDTO.getYear(), bookDTO.getPages(), bookDTO.getCover(), bookDTO.getBlurb(), book));
         handleCities(bookDTO.getCities(), edition);
         handlePublishers(bookDTO.getPublishers(), edition);
+    }
+
+    public List<Book> fetchAllBooks() {
+        return bookRepository.findAll();
     }
 
     private void handleTranslators(List<String> translatorsFromDTO, Book book) {

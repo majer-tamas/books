@@ -19,12 +19,12 @@ public class Review {
     @Column(name = "point")
     private Integer point;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "book")
     private Book book;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "app_user")
     private AppUser appUser;

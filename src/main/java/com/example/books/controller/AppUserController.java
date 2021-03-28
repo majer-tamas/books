@@ -1,9 +1,6 @@
 package com.example.books.controller;
 
-import com.example.books.dto.JwtRequest;
-import com.example.books.dto.JwtResponse;
-import com.example.books.dto.RegexListItem;
-import com.example.books.dto.UserDTO;
+import com.example.books.dto.*;
 import com.example.books.model.AppUser;
 import com.example.books.security.JwtTokenUtil;
 import com.example.books.security.JwtUserDetailsService;
@@ -12,6 +9,7 @@ import com.example.books.validator.UserDtoValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -57,11 +55,11 @@ public class AppUserController {
         binder.addValidators(userDtoValidator);
     }
 
-//    @GetMapping("/test")
-//    public ResponseEntity<StringResponse> test() {
-//        logger.info("test() works.");
-//        return new ResponseEntity<>(new StringResponse("oké"), HttpStatus.OK);
-//    }
+    @GetMapping("/test")
+    public ResponseEntity<StringResponse> test() {
+        logger.info("test() works.");
+        return new ResponseEntity<>(new StringResponse("oké"), HttpStatus.OK);
+    }
 
     @PostMapping("/register")
     public ResponseEntity<AppUser> createNewUser(@RequestBody @Valid UserDTO userDTO, HttpServletRequest request) throws UnsupportedEncodingException, MessagingException {

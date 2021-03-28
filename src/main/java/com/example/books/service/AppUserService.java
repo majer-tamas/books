@@ -46,7 +46,7 @@ public class AppUserService {
                                                                bcryptEncoder.encode(user.getPassword()),
                                                                user.getEmail(),
                                                                randomCode));
-        sendVerificationEmail(savedUser, siteURL);
+        sendVerificationEmail(savedUser);
         return savedUser;
     }
 
@@ -67,7 +67,7 @@ public class AppUserService {
         return siteURL.replace(request.getServletPath(), "");
     }
 
-    private void sendVerificationEmail(AppUser user, String siteURL) throws UnsupportedEncodingException, MessagingException {
+    private void sendVerificationEmail(AppUser user) throws UnsupportedEncodingException, MessagingException {
         String toAddress = user.getEmail();
         String fromAddress = "majer.tamas.progmasters@gmail.com";
         String senderName = "Books Application";
@@ -76,14 +76,13 @@ public class AppUserService {
                 + "Please click the link below to verify your registration:<br>"
                 + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
                 + "Thank you,<br>"
-                + "Your company name.";
+                + "Books Application";
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         helper.setFrom(fromAddress, senderName);
         helper.setTo(toAddress);
         helper.setSubject(subject);
         content = content.replace("[[name]]", user.getUsername());
-        //String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
         String verifyURL = "http://localhost:4200/verify/" + user.getVerificationCode();
         content = content.replace("[[URL]]", verifyURL);
         helper.setText(content, true);

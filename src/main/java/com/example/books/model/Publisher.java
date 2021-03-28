@@ -20,7 +20,7 @@ public class Publisher {
             unique = true)
     private String name;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToMany(mappedBy = "publishers")
     private Set<Edition> editions = new HashSet<>();
 

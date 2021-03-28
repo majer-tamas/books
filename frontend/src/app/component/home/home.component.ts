@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {JWTTokenService} from '../../service/jwt-token.service';
+import {LoginService} from '../../service/login.service';
 
 @Component({
              selector   : 'app-home',
@@ -10,12 +11,12 @@ export class HomeComponent implements OnInit {
 
   username: string = '';
 
-  constructor(private jwtTokenService: JWTTokenService) {
+  constructor(private jwtTokenService: JWTTokenService,
+              private loginService: LoginService) {
   }
 
   ngOnInit(): void {
     this.username = this.jwtTokenService.getUsername();
-    this.jwtTokenService.isLoggedIn();
   }
 
 }

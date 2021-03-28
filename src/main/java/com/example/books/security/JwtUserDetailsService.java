@@ -1,9 +1,11 @@
 package com.example.books.security;
 
-import com.example.books.dto.UserDTO;
 import com.example.books.model.AppUser;
+import com.example.books.model.Role;
 import com.example.books.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,9 +13,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
+@Transactional
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired
@@ -28,14 +32,9 @@ public class JwtUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
-        return new User(user.getUsername(), user.getPassword(),
-                        new ArrayList<>());
+        String[] appUserRoles = user.getRoles().stream().map(Role::name).toArray(String[]::new);
+        List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(appUserRoles);
+        return new User(user.getUsername(), user.getPassword(), authorities);
     }
 
-    public AppUser save(UserDTO user) {
-        AppUser newUser = new AppUser();
-        newUser.setUsername(user.getUsername());
-        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        return appUserRepository.save(newUser);
-    }
 }

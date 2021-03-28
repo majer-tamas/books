@@ -16,6 +16,10 @@ export class LoginService {
   constructor(private http: HttpClient) {
   }
 
+  test(): Observable<any>{
+    return this.http.get(BASE_URL + '/test');
+  }
+
   login(data: LoginFormModel): Observable<TokenModel> {
     return this.http.post<TokenModel>(BASE_URL + '/authenticate', data);
   }

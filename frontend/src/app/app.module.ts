@@ -14,6 +14,7 @@ import {SignUpComponent} from './component/sign-up/sign-up.component';
 import {SuccessfullyRegisteredComponent} from './component/successfully-registered/successfully-registered.component';
 import {SuccessfullyVerifiedComponent} from './component/successfully-verified/successfully-verified.component';
 import {LogoutComponent} from './component/logout/logout.component';
+import { BookListComponent } from './component/book-list/book-list.component';
 
 @NgModule({
             declarations: [
@@ -26,6 +27,7 @@ import {LogoutComponent} from './component/logout/logout.component';
               SuccessfullyRegisteredComponent,
               SuccessfullyVerifiedComponent,
               LogoutComponent,
+              BookListComponent,
             ],
             imports     : [
               BrowserModule,

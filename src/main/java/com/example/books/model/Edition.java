@@ -48,7 +48,7 @@ public class Edition {
     @Column(name = "blurb")
     private String blurb;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book bookId;

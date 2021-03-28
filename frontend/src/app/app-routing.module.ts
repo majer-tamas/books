@@ -7,6 +7,7 @@ import {SignUpComponent} from './component/sign-up/sign-up.component';
 import {SuccessfullyRegisteredComponent} from './component/successfully-registered/successfully-registered.component';
 import {SuccessfullyVerifiedComponent} from './component/successfully-verified/successfully-verified.component';
 import {LogoutComponent} from './component/logout/logout.component';
+import {BookListComponent} from './component/book-list/book-list.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'signup', component: SignUpComponent},
   {path: 'successfully-registered', component: SuccessfullyRegisteredComponent},
   {path: 'successfully-verified', component: SuccessfullyVerifiedComponent},
+  {path: 'book-list', component: BookListComponent},
 ];
 
 @NgModule({

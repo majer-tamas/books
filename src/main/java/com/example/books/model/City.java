@@ -20,7 +20,7 @@ public class City {
             unique = true)
     private String name;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToMany(mappedBy = "cities")
     private Set<Edition> editions = new HashSet<>();
 
